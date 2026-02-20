@@ -416,6 +416,8 @@ window.onYouTubeIframeAPIReady = function () {
       playsinline: 1,
       enablejsapi: 1,    // Required for API control
       origin: window.location.origin, // Required for postMessage in iframes
+      autoplay: 1,       // Start immediately (muted — required by browser policy)
+      mute: 1,           // Muted autoplay is universally allowed in iframes
     },
     events: {
       onReady: onPlayerReady,
@@ -428,8 +430,9 @@ function onPlayerReady(event) {
   isReady = true;
   loadingOverlay.classList.remove('visible');
 
-  // Set initial volume
-  player.setVolume(80);
+  // Reflect muted-autoplay state in the UI
+  volumeSlider.value = 0;
+  updateVolumeIcon(0);
 
   // Update total time
   updateTotalTime();
