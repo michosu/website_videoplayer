@@ -414,6 +414,8 @@ window.onYouTubeIframeAPIReady = function () {
       iv_load_policy: 3, // No annotations
       disablekb: 1,      // Disable keyboard (we handle it)
       playsinline: 1,
+      enablejsapi: 1,    // Required for API control
+      origin: window.location.origin, // Required for postMessage in iframes
     },
     events: {
       onReady: onPlayerReady,
