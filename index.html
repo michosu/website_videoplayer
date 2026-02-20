@@ -404,6 +404,21 @@ document.head.appendChild(tag);
 
 // YouTube API callback
 window.onYouTubeIframeAPIReady = function () {
+  // Add allow="autoplay" to the YouTube iframe the instant it is created,
+  // before its content loads. This propagates Framer's autoplay permission
+  // down the iframe chain so unmuted playback isn't blocked.
+  const observer = new MutationObserver((mutations) => {
+    for (const { addedNodes } of mutations) {
+      for (const node of addedNodes) {
+        if (node.nodeName === 'IFRAME') {
+          node.setAttribute('allow', 'autoplay; fullscreen; encrypted-media; picture-in-picture');
+          observer.disconnect();
+        }
+      }
+    }
+  });
+  observer.observe(document.getElementById('yt-player'), { childList: true });
+
   player = new YT.Player('yt-player', {
     videoId: VIDEO_ID,
     playerVars: {
@@ -415,9 +430,9 @@ window.onYouTubeIframeAPIReady = function () {
       disablekb: 1,      // Disable keyboard (we handle it)
       playsinline: 1,
       enablejsapi: 1,    // Required for API control
-      origin: window.location.origin, // Required for postMessage in iframes
-      autoplay: 1,       // Start immediately (muted — required by browser policy)
-      mute: 1,           // Muted autoplay is universally allowed in iframes
+      origin: window.location.origin,
+      autoplay: 1,       // Muted autoplay primes the media session
+      mute: 1,           // (required — browsers block unmuted autoplay)
     },
     events: {
       onReady: onPlayerReady,
@@ -430,12 +445,11 @@ function onPlayerReady(event) {
   isReady = true;
   loadingOverlay.classList.remove('visible');
 
-  // The player started via muted autoplay to bypass Framer's iframe
-  // autoplay restrictions. Immediately pause and unmute so the user
-  // experiences normal click-to-play with full audio.
-  player.mute();        // sync URL-param mute state with the API
-  player.pauseVideo();  // pause — user will press play
-  player.unMute();      // unmute so playback starts with sound
+  // Sync the URL-param mute state with the API, then pause and unmute.
+  // This makes the player ready for click-to-play with full audio.
+  player.mute();
+  player.pauseVideo();
+  player.unMute();
   player.setVolume(80);
 
   updateTotalTime();
