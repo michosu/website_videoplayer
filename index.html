@@ -430,14 +430,15 @@ function onPlayerReady(event) {
   isReady = true;
   loadingOverlay.classList.remove('visible');
 
-  // Reflect muted-autoplay state in the UI
-  volumeSlider.value = 0;
-  updateVolumeIcon(0);
+  // The player started via muted autoplay to bypass Framer's iframe
+  // autoplay restrictions. Immediately pause and unmute so the user
+  // experiences normal click-to-play with full audio.
+  player.mute();        // sync URL-param mute state with the API
+  player.pauseVideo();  // pause — user will press play
+  player.unMute();      // unmute so playback starts with sound
+  player.setVolume(80);
 
-  // Update total time
   updateTotalTime();
-
-  // Start the update loop
   updateInterval = setInterval(updateTimeline, 250);
 }
 
