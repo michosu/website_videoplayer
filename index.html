@@ -24,7 +24,6 @@
     max-width: 95vw;
   }
 
-  /* === VIDEO FRAME === */
   .video-frame {
     position: relative;
     border-radius: 18px;
@@ -36,28 +35,24 @@
   }
 
   .video-frame iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    display: block;
+    width: 100%; height: 100%;
+    border: none; display: block;
   }
 
   .video-click-overlay {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    z-index: 2;
-    cursor: pointer;
+    z-index: 2; cursor: pointer;
   }
 
-  /* === CONTROLS BAR === */
   .controls-bar {
     margin-top: -2px;
     background: linear-gradient(180deg, #3BAAFF 0%, #0088E0 100%);
     border-radius: 0 0 16px 16px;
-    padding: 10px 16px 10px;
+    padding: 10px 16px;
     border: 3px solid #FFD000;
     border-top: none;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     display: flex;
     align-items: center;
     gap: 8px;
@@ -65,48 +60,36 @@
 
   .btn {
     background: linear-gradient(180deg, #4DC4FF 0%, #0077CC 100%);
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(255,255,255,0.3);
     border-radius: 10px;
-    color: white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    color: white; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
     transition: all 0.1s ease;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.25), inset 0 1px 2px rgba(255,255,255,0.3);
     flex-shrink: 0;
   }
   .btn:hover  { background: linear-gradient(180deg, #6FD4FF 0%, #0099EE 100%); transform: translateY(-1px); }
   .btn:active { transform: translateY(1px) scale(0.96); }
-
   .btn-sm   { width: 32px; height: 32px; font-size: 14px; }
   .btn-play { width: 50px; height: 50px; font-size: 22px; border-radius: 14px; }
 
   .icon { fill: white; width: 1em; height: 1em; display: block; }
 
   .volume-slider {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 70px;
-    height: 6px;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 3px;
-    outline: none;
-    cursor: pointer;
-    flex-shrink: 0;
+    -webkit-appearance: none; appearance: none;
+    width: 70px; height: 6px;
+    background: rgba(0,0,0,0.3); border-radius: 3px;
+    outline: none; cursor: pointer; flex-shrink: 0;
   }
   .volume-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 14px; height: 14px;
-    background: white;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    background: white; border-radius: 50%; cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
   }
 
   .spacer { flex: 1; }
 
-  /* === TIMELINE BAR === */
   .timeline-bar {
     position: relative;
     background: linear-gradient(180deg, #FFD000 0%, #FFAA00 100%);
@@ -115,80 +98,53 @@
     border: 3px solid #FFD000;
     border-top: none;
     margin-top: -2px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    display: flex; align-items: center; gap: 10px;
   }
 
   .time-label {
     font-family: 'Bungee', cursive;
-    font-size: 13px;
-    color: #1a1a2e;
-    min-width: 38px;
-    user-select: none;
+    font-size: 13px; color: #1a1a2e;
+    min-width: 38px; user-select: none;
   }
   .time-label.right { text-align: right; }
 
   .timeline-track {
-    flex: 1;
-    height: 10px;
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    position: relative;
-    cursor: pointer;
-    overflow: visible;
+    flex: 1; height: 10px;
+    background: rgba(0,0,0,0.2); border-radius: 5px;
+    position: relative; cursor: pointer; overflow: visible;
   }
-
   .timeline-buffer {
-    position: absolute; top: 0; left: 0;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 5px;
-    pointer-events: none;
+    position: absolute; top: 0; left: 0; height: 100%;
+    background: rgba(255,255,255,0.2); border-radius: 5px; pointer-events: none;
   }
-
   .timeline-progress {
-    position: absolute; top: 0; left: 0;
-    height: 100%;
+    position: absolute; top: 0; left: 0; height: 100%;
     background: linear-gradient(90deg, #4AE54A, #00CC00);
-    border-radius: 5px;
-    pointer-events: none;
-    transition: width 0.1s linear;
+    border-radius: 5px; pointer-events: none; transition: width 0.1s linear;
   }
-
   .timeline-handle {
     position: absolute; top: 50%;
     width: 16px; height: 16px;
-    background: #4AE54A;
-    border: 2px solid white;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-    transition: left 0.1s linear;
+    background: #4AE54A; border: 2px solid white; border-radius: 50%;
+    transform: translate(-50%, -50%); pointer-events: none;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3); transition: left 0.1s linear;
   }
 
-  /* === DRIPS === */
   .drips {
-    position: absolute;
-    bottom: -18px; left: 10%; right: 10%;
-    display: flex;
-    justify-content: space-around;
-    pointer-events: none;
+    position: absolute; bottom: -18px; left: 10%; right: 10%;
+    display: flex; justify-content: space-around; pointer-events: none;
   }
   .drip {
-    width: 12px; height: 18px;
-    background: #FFAA00;
-    border-radius: 0 0 50% 50%;
-    animation: dripDrop 3s ease-in-out infinite;
+    width: 12px; height: 18px; background: #FFAA00;
+    border-radius: 0 0 50% 50%; animation: dripDrop 3s ease-in-out infinite;
   }
-  .drip:nth-child(2) { animation-delay: 0.7s; height: 14px; }
-  .drip:nth-child(3) { animation-delay: 1.4s; height: 22px; }
-  .drip:nth-child(4) { animation-delay: 0.3s; height: 16px; }
-  .drip:nth-child(5) { animation-delay: 2.1s; height: 12px; }
+  .drip:nth-child(2) { animation-delay:.7s; height:14px; }
+  .drip:nth-child(3) { animation-delay:1.4s; height:22px; }
+  .drip:nth-child(4) { animation-delay:.3s; height:16px; }
+  .drip:nth-child(5) { animation-delay:2.1s; height:12px; }
   @keyframes dripDrop {
-    0%, 100% { transform: scaleY(1); }
-    50%       { transform: scaleY(1.3); opacity: 0.8; }
+    0%,100% { transform: scaleY(1); }
+    50%      { transform: scaleY(1.3); opacity:.8; }
   }
 </style>
 </head>
@@ -196,9 +152,12 @@
 
 <div class="player-wrapper">
 
-  <!-- Video: iframe pre-created with full allow attribute so YouTube
-       can play with sound inside Framer's embed iframe -->
   <div class="video-frame">
+    <!--
+      The allow attribute MUST be present here in HTML before src is set,
+      so the browser grants autoplay/sound permissions when the content loads.
+      The src is set synchronously by the script below.
+    -->
     <iframe
       id="yt-iframe"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -207,33 +166,27 @@
     <div class="video-click-overlay" id="clickOverlay"></div>
   </div>
 
-  <!-- Controls -->
   <div class="controls-bar">
     <button class="btn btn-sm" id="muteBtn" title="Mute/Unmute">
       <svg class="icon" viewBox="0 0 24 24"><path id="volumeIcon" d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
     </button>
     <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="80">
-
     <div class="spacer"></div>
-
     <button class="btn btn-play" id="playBtn" title="Play/Pause">
       <svg class="icon" viewBox="0 0 24 24"><path id="playIcon" d="M8 5v14l11-7z"/></svg>
     </button>
-
     <div class="spacer"></div>
-    <!-- mirror volume width for centering -->
-    <div style="width:110px"></div>
+    <div style="width:110px"></div><!-- balance the volume group -->
   </div>
 
-  <!-- Timeline -->
   <div class="timeline-bar">
-    <span class="time-label" id="currentTime">0:00</span>
+    <span class="time-label"       id="currentTime">0:00</span>
     <div class="timeline-track" id="timelineTrack">
-      <div class="timeline-buffer"  id="timelineBuffer"></div>
+      <div class="timeline-buffer"   id="timelineBuffer"></div>
       <div class="timeline-progress" id="timelineProgress"></div>
-      <div class="timeline-handle"  id="timelineHandle"></div>
+      <div class="timeline-handle"   id="timelineHandle"></div>
     </div>
-    <span class="time-label right" id="totalTime">0:00</span>
+    <span class="time-label right"  id="totalTime">0:00</span>
     <div class="drips">
       <div class="drip"></div><div class="drip"></div><div class="drip"></div>
       <div class="drip"></div><div class="drip"></div>
@@ -243,45 +196,28 @@
 </div>
 
 <script>
-// ── CONFIG ──────────────────────────────────────────────────
+// ── CONFIG ────────────────────────────────────────────────────────────────────
 const VIDEO_ID = 'dQw4w9WgXcQ';
 
-// ── STATE ───────────────────────────────────────────────────
-let player, isReady = false, isSeeking = false, lastVolume = 80;
+// Set the iframe src RIGHT NOW (synchronous), while the allow attribute from
+// the HTML is already on the element. This mirrors a classic YouTube embed:
+// the browser evaluates permissions with allow in place before content loads.
+const ytIframe = document.getElementById('yt-iframe');
+ytIframe.src = 'https://www.youtube.com/embed/' + VIDEO_ID
+  + '?enablejsapi=1&controls=0&rel=0&modestbranding=1'
+  + '&playsinline=1&iv_load_policy=3'
+  + '&origin=' + encodeURIComponent(window.location.origin);
 
-// ── DOM ─────────────────────────────────────────────────────
-const playBtn        = document.getElementById('playBtn');
-const playIcon       = document.getElementById('playIcon');
-const muteBtn        = document.getElementById('muteBtn');
-const volumeIcon     = document.getElementById('volumeIcon');
-const volumeSlider   = document.getElementById('volumeSlider');
-const clickOverlay   = document.getElementById('clickOverlay');
-const timelineTrack  = document.getElementById('timelineTrack');
-const timelineProgress = document.getElementById('timelineProgress');
-const timelineHandle = document.getElementById('timelineHandle');
-const timelineBuffer = document.getElementById('timelineBuffer');
-const currentTimeEl  = document.getElementById('currentTime');
-const totalTimeEl    = document.getElementById('totalTime');
-
-// ── YOUTUBE API ─────────────────────────────────────────────
+// ── YOUTUBE IFRAME API ────────────────────────────────────────────────────────
 const tag = document.createElement('script');
 tag.src = 'https://www.youtube.com/iframe_api';
 document.head.appendChild(tag);
 
+let player, isReady = false, isSeeking = false, lastVolume = 80;
+
 window.onYouTubeIframeAPIReady = function () {
-  // Pass the pre-created iframe — its allow attribute is already set,
-  // so YouTube loads with full autoplay/sound permissions.
+  // Attach to the existing iframe (src already set above) — no videoId needed
   player = new YT.Player('yt-iframe', {
-    videoId: VIDEO_ID,
-    playerVars: {
-      controls: 0,
-      rel: 0,
-      modestbranding: 1,
-      iv_load_policy: 3,
-      playsinline: 1,
-      enablejsapi: 1,
-      origin: window.location.origin,
-    },
     events: {
       onReady: onPlayerReady,
       onStateChange: onPlayerStateChange,
@@ -292,38 +228,46 @@ window.onYouTubeIframeAPIReady = function () {
 function onPlayerReady() {
   isReady = true;
   player.setVolume(80);
-  totalTimeEl.textContent = formatTime(player.getDuration());
+  document.getElementById('totalTime').textContent = formatTime(player.getDuration());
   setInterval(updateTimeline, 250);
 }
 
-function onPlayerStateChange(event) {
-  const s = event.data;
-  if (s === YT.PlayerState.PLAYING) {
-    playIcon.setAttribute('d', 'M6 19h4V5H6v14zm8-14v14h4V5h-4z');
-  } else {
-    playIcon.setAttribute('d', 'M8 5v14l11-7z');
-  }
-  if (s === YT.PlayerState.ENDED) {
-    player.seekTo(0); player.pauseVideo();
-  }
+function onPlayerStateChange(e) {
+  const PLAYING = 1, ENDED = 0;
+  document.getElementById('playIcon').setAttribute('d',
+    e.data === PLAYING
+      ? 'M6 19h4V5H6v14zm8-14v14h4V5h-4z'   // pause
+      : 'M8 5v14l11-7z'                       // play
+  );
+  if (e.data === ENDED) { player.seekTo(0); player.pauseVideo(); }
 }
 
-// ── PLAY / PAUSE ─────────────────────────────────────────────
+// ── DOM REFS ──────────────────────────────────────────────────────────────────
+const playBtn        = document.getElementById('playBtn');
+const muteBtn        = document.getElementById('muteBtn');
+const volumeSlider   = document.getElementById('volumeSlider');
+const clickOverlay   = document.getElementById('clickOverlay');
+const timelineTrack  = document.getElementById('timelineTrack');
+const timelineProgress = document.getElementById('timelineProgress');
+const timelineHandle = document.getElementById('timelineHandle');
+const timelineBuffer = document.getElementById('timelineBuffer');
+const currentTimeEl  = document.getElementById('currentTime');
+const totalTimeEl    = document.getElementById('totalTime');
+
+// ── PLAY / PAUSE ──────────────────────────────────────────────────────────────
 function togglePlay() {
   if (!isReady) return;
-  player.getPlayerState() === YT.PlayerState.PLAYING
-    ? player.pauseVideo()
-    : player.playVideo();
+  player.getPlayerState() === 1 ? player.pauseVideo() : player.playVideo();
 }
 playBtn.addEventListener('click', togglePlay);
 clickOverlay.addEventListener('click', togglePlay);
 
-// ── VOLUME / MUTE ────────────────────────────────────────────
+// ── VOLUME / MUTE ─────────────────────────────────────────────────────────────
 volumeSlider.addEventListener('input', (e) => {
   if (!isReady) return;
   const vol = +e.target.value;
   player.setVolume(vol);
-  if (vol > 0) lastVolume = vol;
+  if (vol > 0) { player.unMute(); lastVolume = vol; }
   setVolumeIcon(vol);
 });
 
@@ -343,20 +287,19 @@ muteBtn.addEventListener('click', () => {
 });
 
 function setVolumeIcon(vol) {
-  if (vol === 0) {
-    volumeIcon.setAttribute('d', 'M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z');
-  } else if (vol < 50) {
-    volumeIcon.setAttribute('d', 'M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z');
-  } else {
-    volumeIcon.setAttribute('d', 'M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z');
-  }
+  const p = document.getElementById('volumeIcon');
+  if (vol === 0)
+    p.setAttribute('d','M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z');
+  else if (vol < 50)
+    p.setAttribute('d','M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z');
+  else
+    p.setAttribute('d','M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z');
 }
 
-// ── TIMELINE ──────────────────────────────────────────────────
+// ── TIMELINE ──────────────────────────────────────────────────────────────────
 function updateTimeline() {
   if (!isReady || isSeeking) return;
-  const cur = player.getCurrentTime();
-  const dur = player.getDuration();
+  const cur = player.getCurrentTime(), dur = player.getDuration();
   if (!dur) return;
   const pct = (cur / dur) * 100;
   timelineProgress.style.width = pct + '%';
@@ -377,22 +320,19 @@ function seekFromEvent(e) {
 }
 
 timelineTrack.addEventListener('mousedown', (e) => {
-  isSeeking = true;
-  seekFromEvent(e);
+  isSeeking = true; seekFromEvent(e);
   const onMove = (e) => seekFromEvent(e);
   const onUp   = () => { isSeeking = false; document.removeEventListener('mousemove', onMove); document.removeEventListener('mouseup', onUp); };
   document.addEventListener('mousemove', onMove);
   document.addEventListener('mouseup',  onUp);
 });
-
-timelineTrack.addEventListener('touchstart', (e) => { isSeeking = true; seekFromEvent(e.touches[0]); });
+timelineTrack.addEventListener('touchstart', (e) => { isSeeking = true;  seekFromEvent(e.touches[0]); });
 timelineTrack.addEventListener('touchmove',  (e) => { e.preventDefault(); seekFromEvent(e.touches[0]); });
 timelineTrack.addEventListener('touchend',   ()  => { isSeeking = false; });
 
-// ── HELPERS ───────────────────────────────────────────────────
+// ── HELPERS ───────────────────────────────────────────────────────────────────
 function formatTime(s) {
-  const m = Math.floor(s / 60);
-  return m + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+  return Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2,'0');
 }
 </script>
 
