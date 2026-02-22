@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #000; font-family: sans-serif; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+
+  #wrap { position: relative; width: 100%; max-width: 1400px; margin: auto; }
+
+  /* Video area */
+  #frame { position: relative; aspect-ratio: 16/9; background: #000; }
+  #frame iframe { width: 100%; height: 100%; border: none; display: block; }
+
+  /* Thumbnail shown before first play */
+  #thumb {
+    position: absolute; inset: 0;
+    cursor: pointer; background: #000;
+    display: flex; align-items: center; justify-content: center;
+  }
+  #thumb img { width: 100%; height: 100%; object-fit: cover; position: absolute; }
+  #thumb-btn {
+    position: relative; z-index: 1;
+    width: 64px; height: 64px; border-radius: 50%;
+    background: rgba(255,0,0,0.85);
+    display: flex; align-items: center; justify-content: center;
+  }
+  #thumb-btn svg { fill: white; width: 28px; height: 28px; margin-left: 4px; }
+
+  /* Controls */
+  #controls {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 12px; background: #111;
+  }
+  #playBtn {
+    background: none; border: 1px solid #fff; color: #fff;
+    padding: 6px 12px; font-size: 16px; cursor: pointer; flex-shrink: 0;
+  }
+  #timeline { flex: 1; cursor: pointer; accent-color: #f00; }
+  #volume   { width: 80px; cursor: pointer; accent-color: #fff; }
+  #timeLabel { color: #fff; font-size: 12px; min-width: 80px; text-align: right; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<div id="wrap">
+
+  <div id="frame">
+    <!-- iframe src is set on first click (required for audio in Framer) -->
+    <iframe id="ytFrame"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+    </iframe>
+
+    <!-- Shown until user presses play -->
+    <div id="thumb">
+      <img id="thumbImg" src="" alt="">
+      <div id="thumb-btn">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <div id="controls">
+    <button id="playBtn">▶</button>
+    <input type="range" id="timeline" min="0" max="1000" value="0">
+    <input type="range" id="volume"   min="0" max="100"  value="80">
+    <span id="timeLabel">0:00 / 0:00</span>
+  </div>
+
+</div>
+
+<script>
+// ── CONFIG ────────────────────────────────────────────────────────────────────
+var VIDEO_ID = new URLSearchParams(location.search).get('v') || '';
+
+// ── THUMBNAIL ─────────────────────────────────────────────────────────────────
+document.getElementById('thumbImg').src =
+  'https://img.youtube.com/vi/' + VIDEO_ID + '/maxresdefault.jpg';
+
+// ── YOUTUBE API ───────────────────────────────────────────────────────────────
+var s = document.createElement('script');
+s.src = 'https://www.youtube.com/iframe_api';
+document.head.appendChild(s);
+
+var player, ready = false, seeking = false, apiReady = false;
+
+window.onYouTubeIframeAPIReady = function () { apiReady = true; };
+
+function startPlayer() {
+  if (!apiReady) return;
+
+  // Setting src INSIDE a click = browser grants audio autoplay permission
+  var iframe = document.getElementById('ytFrame');
+  var origin = location.origin && location.origin !== 'null' ? '&origin=' + encodeURIComponent(location.origin) : '';
+  iframe.src = 'https://www.youtube.com/embed/' + VIDEO_ID
+    + '?autoplay=1&controls=0&enablejsapi=1&rel=0&modestbranding=1'
+    + origin;
+
+  player = new YT.Player(iframe, {
+    events: {
+      onReady: function () {
+        ready = true;
+        player.setVolume(+document.getElementById('volume').value);
+        setInterval(tick, 250);
+      },
+      onStateChange: function (e) {
+        // Update play/pause icon
+        document.getElementById('playBtn').textContent =
+          e.data === YT.PlayerState.PLAYING ? '⏸' : '▶';
+        // When video ends, reset
+        if (e.data === YT.PlayerState.ENDED) {
+          player.seekTo(0); player.pauseVideo();
+        }
+      }
+    }
+  });
+
+  document.getElementById('thumb').style.display = 'none';
+}
+
+// ── TICK (timeline update) ────────────────────────────────────────────────────
+function tick() {
+  if (!ready || seeking) return;
+  var cur = player.getCurrentTime(), dur = player.getDuration() || 1;
+  document.getElementById('timeline').value = (cur / dur) * 1000;
+  document.getElementById('timeLabel').textContent = fmt(cur) + ' / ' + fmt(dur);
+}
+
+function fmt(s) {
+  return Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+}
+
+// ── CONTROLS ──────────────────────────────────────────────────────────────────
+document.getElementById('thumb').addEventListener('click', startPlayer);
+
+document.getElementById('playBtn').addEventListener('click', function () {
+  if (!player) { startPlayer(); return; }
+  if (!ready) return;
+  player.getPlayerState() === YT.PlayerState.PLAYING
+    ? player.pauseVideo() : player.playVideo();
+});
+
+document.getElementById('timeline').addEventListener('mousedown', function () { seeking = true; });
+document.getElementById('timeline').addEventListener('input', function () {
+  if (!ready) return;
+  player.seekTo((this.value / 1000) * player.getDuration(), true);
+});
+document.getElementById('timeline').addEventListener('mouseup', function () { seeking = false; });
+
+document.getElementById('volume').addEventListener('input', function () {
+  if (ready) player.setVolume(+this.value);
+});
+</script>
+
+</body>
+</html>
